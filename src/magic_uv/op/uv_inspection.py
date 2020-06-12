@@ -72,7 +72,7 @@ def _update_uvinsp_info(context):
     uv_layer_list = []
     faces_list = []
     for o in bpy.data.objects:
-        if not o.select_get():
+        if not compat.get_object_select(o):
             continue
         if o.type != 'MESH':
             continue
@@ -420,7 +420,7 @@ class MUV_OT_UVInspection_PaintUVIsland(bpy.types.Operator):
             bm = bmesh.from_edit_mesh(obj.data)
             bm.faces.ensure_lookup_table()
             for f in bm.faces:
-                f.select_set(False)
+                f.select = False
             for fidx in cf[1]:
                 bm.faces[fidx].select_set(True)
             bmesh.update_edit_mesh(obj.data)
